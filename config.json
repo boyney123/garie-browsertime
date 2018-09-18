@@ -1,0 +1,8 @@
+{
+	"cron": "0 */10 * * * *",
+	"urls": [
+		{
+			"url": "https://www.bbc.co.uk"
+		}
+	]
+}

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  influxdb:
+    image: "influxdb:latest"
+    ports:
+      - 8086:8086
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
+  garie-browsertime:
+    image: "garie-browsertime:latest"
+    privileged: true
+    volumes:
+      - /reports:/usr/src/garie-browsertime/reports
+      - /var/run/docker.sock:/run/docker.sock
+      - /usr/local/bin/docker:/bin/docker
+    ports:
+      - 3000:3000
+    environment:
+      - HOST=influxdb  
+  chronograf:
+    image: "chronograf:latest"
+    ports:
+      - 8888:8888
+    depends_on:
+      - influxdb  
