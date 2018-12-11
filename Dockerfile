@@ -13,4 +13,6 @@ COPY . .
 
 EXPOSE 3000
 
+ENTRYPOINT ["/usr/src/garie-browsertime/docker-entrypoint.sh"]
+
 CMD ["npm", "start"]
