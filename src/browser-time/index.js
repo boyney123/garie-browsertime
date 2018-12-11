@@ -4,7 +4,7 @@ const flatten = require('flat');
 const child_process = require('child_process');
 const urlParser = require('url');
 const crypto = require('crypto');
-
+const isEmpty = require('lodash.isempty');
 const logger = require('../utils/logger');
 
 const filterBrowserTimeData = (report = {}) => {
