@@ -30,7 +30,8 @@
         "fs-extra": "^7.0.0",
         "influx": "^5.0.7",
         "serve-index": "^1.9.1",
-        "winston": "^3.0.0"
+        "winston": "^3.0.0",
+        "lodash.isempty": "4.4.0"
     },
     "devDependencies": {
         "codecov": "^3.0.0",
