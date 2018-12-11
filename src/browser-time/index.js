@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const flatten = require('flat');
 const child_process = require('child_process');
+const urlParser = require('url');
+const crypto = require('crypto');
 
 const logger = require('../utils/logger');
 
@@ -10,11 +12,30 @@ const filterBrowserTimeData = (report = {}) => {
     return flatten(statistics);
 };
 
+
+function pathNameFromUrl(url) {
+  const parsedUrl = urlParser.parse(url),
+    pathSegments = parsedUrl.pathname.split('/');
+
+  pathSegments.unshift(parsedUrl.hostname);
+
+  if (!isEmpty(parsedUrl.search)) {
+    const md5 = crypto.createHash('md5'),
+      hash = md5
+        .update(parsedUrl.search)
+        .digest('hex')
+        .substring(0, 8);
+    pathSegments.push('query-' + hash);
+  }
+
+  return pathSegments.filter(Boolean).join('-');
+}
+
+
 const getBrowserTimeFile = (url = '') => {
     try {
-        const urlWithNoProtocol = url.replace(/^https?\:\/\//i, '');
 
-        const dir = path.join(__dirname, '../../reports/browsertime-results', urlWithNoProtocol);
+        const dir = path.join(__dirname, '../../reports/browsertime-results', pathNameFromUrl(url));
 
         const folders = fs.readdirSync(dir);
 
