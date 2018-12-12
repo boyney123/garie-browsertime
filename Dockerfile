@@ -13,6 +13,8 @@ COPY . .
 
 EXPOSE 3000
 
+VOLUME ["/usr/src/garie-browsertime/reports", "/usr/src/garie-lighthouse/logs"]
+
 ENTRYPOINT ["/usr/src/garie-browsertime/docker-entrypoint.sh"]
 
 CMD ["npm", "start"]
