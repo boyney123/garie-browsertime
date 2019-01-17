@@ -12,7 +12,7 @@ services:
         privileged: true
         volumes:
             - /var/run/docker.sock:/run/docker.sock
-            - /usr/local/bin/docker:/bin/docker
+            - /usr/bin/docker:/bin/docker
         ports:
             - 3000:3000
         environment:
