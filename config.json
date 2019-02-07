@@ -1,8 +1,11 @@
 {
-    "cron": "0 */10 * * * *",
-    "urls": [
-        {
-            "url": "https://www.bbc.co.uk"
-        }
-    ]
+  "cron": "0 */4 * * *",
+  "urls": [
+    {
+      "url": "https://www.eea.europa.eu/"
+    },
+    {
+      "url": "https://biodiversity.europa.eu/"
+    }
+  ]
 }

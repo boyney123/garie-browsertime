@@ -3,10 +3,10 @@
     "version": "0.0.1",
     "description": "Browertime image for performance metrics",
     "license": "MIT",
-    "repository": "boyney123/garie-browertime",
+    "repository": "eeacms/garie-securityheaders",
     "author": {
-        "name": "David Boyne",
-        "email": "davidboyne123@hotmail.co.uk"
+        "name": "EEA Team",
+        "email": "eea team"
     },
     "engines": {
         "node": ">=6"
@@ -16,22 +16,8 @@
         "test:watch": "ENV=test jest --watch --notify --notifyMode=change --coverage --config jest.config.json",
         "start": "node ./src/index.js"
     },
-    "files": [
-        "index.js"
-    ],
-    "keywords": [
-        ""
-    ],
     "dependencies": {
-        "body-parser": "^1.18.3",
-        "cron": "^1.4.1",
-        "express": "^4.16.3",
-        "flat": "^4.1.0",
-        "fs-extra": "^7.0.0",
-        "influx": "^5.0.7",
-        "serve-index": "^1.9.1",
-        "winston": "^3.0.0",
-        "lodash.isempty": "4.4.0"
+        "garie-plugin": "https://github.com/eea/garie-plugin"
     },
     "devDependencies": {
         "codecov": "^3.0.0",

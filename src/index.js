@@ -1,78 +1,59 @@
-const CronJob = require('cron').CronJob;
-const express = require('express');
-const serveIndex = require('serve-index');
-const bodyParser = require('body-parser');
-
-const collect = require('./routes/collect');
-const logger = require('./utils/logger');
+const garie_plugin = require('garie-plugin')
+const path = require('path');
 const config = require('../config');
+const express = require('express');
+const bodyParser = require('body-parser');
+const serveIndex = require('serve-index');
 
-const { init, saveData } = require('./influx');
-
-const { getData } = require('./browser-time');
-
-const app = express();
-app.use(bodyParser.json());
-
-const { urls, cron } = config;
-
-app.use('/collect', collect);
-app.use('/reports', express.static('reports'), serveIndex('reports', { icons: true }));
-
-const getDataForAllUrls = async () => {
-    for (const item of urls) {
-        try {
-            const { url } = item;
-            const data = await getData(url);
-            await saveData(url, data);
-        } catch (err) {
-            logger.error(`Failed to parse ${url}`, err);
-        }
-    }
-};
-
-const main = async () => {
-    await init();
-
-    try {
-        if (cron) {
-            return new CronJob(
-                cron,
-                async () => {
-                    getDataForAllUrls();
-                },
-                null,
-                true,
-                'Europe/London',
-                null,
-                true
-            );
-        }
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-if (process.env.ENV !== 'test') {
-    app.listen(3000, async () => {
-        console.log('Application listening on port 3000');
-        await main();
-    });
+const myGetFile = async (options) => {
+    options.fileName = 'browsertime.json';
+    const file = await garie_plugin.utils.helpers.getNewestFile(options);
+    return getResults(JSON.parse(file));
 }
 
-module.exports = {
-    main,
-    app
+const myGetData = async (item) => {
+    const { url } = item.url_settings;
+    return new Promise(async (resolve, reject) => {
+        try {
+            const { reportDir } = item;
+
+            const options = { script: path.join(__dirname, './browsertime.sh'),
+                        url: url,
+                        reportDir: reportDir,
+                        params: [ ],
+                        callback: myGetFile
+                    }
+            data = await garie_plugin.utils.helpers.executeScript(options);
+
+            resolve(data);
+        } catch (err) {
+            console.log(`Failed to get data for ${url}`, err);
+            reject(`Failed to get data for ${url}`);
+        }
+    });
 };
 
-/**
- * Parse the data and store into InfluxDB
- * Test docker image with the Garie Architecture.
- * Tidy up the project
- * Write tests and test coverage
- * Get into Github and open sourced
- * Setup CI and codecoverage
- *
- * Why isnt it being run every 2 minutes into the database and visualise?
- *
- */
+
+
+console.log("Start");
+
+
+const app = express();
+app.use('/reports', express.static('reports'), serveIndex('reports', { icons: true }));
+
+const main = async () => {
+  garie_plugin.init({
+    database:'browsertime',
+    getData:myGetData,
+    app_name:'browsertime_results',
+    app_root: path.join(__dirname, '..'),
+    config:config
+  });
+}
+
+if (process.env.ENV !== 'test') {
+  app.listen(3000, async () => {
+    console.log('Application listening on port 3000');
+    await main();
+  });
+}

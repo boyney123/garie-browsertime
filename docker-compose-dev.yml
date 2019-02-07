@@ -1,0 +1,32 @@
+version: '3'
+services:
+    influxdb:
+        image: 'influxdb:latest'
+        ports:
+            - 8086:8086
+        environment:
+            - INFLUXDB_ADMIN_USER=admin
+            - INFLUXDB_ADMIN_PASSWORD=admin
+
+    garie_plugin:
+        build: .
+        privileged: true
+        volumes:
+            - ./src:/usr/src/garie_plugin/src:z
+            - ./config.json:/usr/src/garie_plugin/config.json:z
+            - /var/run/docker.sock:/run/docker.sock
+            - /usr/bin/docker:/bin/docker
+        ports:
+            - 3000:3000
+        environment:
+            - HOST=influxdb
+        depends_on:
+            - influxdb
+        command: bash -c "tail -f /dev/null"
+
+    chronograf:
+        image: 'chronograf:latest'
+        ports:
+            - 8888:8888
+        depends_on:
+            - influxdb

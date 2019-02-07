@@ -1,24 +1,20 @@
 FROM node:8.10.0
 
-RUN mkdir -p /usr/src/garie-browsertime
-RUN mkdir -p /usr/src/garie-browsertime/reports
+RUN mkdir -p /usr/src/garie_plugin
+RUN mkdir -p /usr/src/garie_plugin/reports
 
-WORKDIR /usr/src/garie-browsertime
+WORKDIR /usr/src/garie_plugin
 
-COPY package.json config.json /usr/src/garie-browsertime/
+COPY package.json .
 
-COPY src/ /usr/src/garie-browsertime/src/
+RUN cd /usr/src/garie_plugin && npm install
 
-RUN ls -ltr /usr/src/garie-browsertime/
-
-RUN npm install --only=production
-
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY . .
 
 EXPOSE 3000
 
-VOLUME ["/usr/src/garie-browsertime/reports", "/usr/src/garie-lighthouse/logs"]
+VOLUME ["/usr/src/garie_plugin/reports"]
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/src/garie_plugin/docker-entrypoint.sh"]
 
 CMD ["npm", "start"]
