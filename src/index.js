@@ -4,11 +4,18 @@ const config = require('../config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const serveIndex = require('serve-index');
+const flatten = require('flat');
+
+const filterBrowserTimeData = (report = {}) => {
+    const { statistics = {} } = report[0];
+
+    return flatten(statistics);
+};
 
 const myGetFile = async (options) => {
     options.fileName = 'browsertime.json';
     const file = await garie_plugin.utils.helpers.getNewestFile(options);
-    return getResults(JSON.parse(file));
+    return filterBrowserTimeData(JSON.parse(file));
 }
 
 const myGetData = async (item) => {
@@ -45,7 +52,7 @@ const main = async () => {
   garie_plugin.init({
     database:'browsertime',
     getData:myGetData,
-    app_name:'browsertime_results',
+    app_name:'browsertime-results',
     app_root: path.join(__dirname, '..'),
     config:config
   });
