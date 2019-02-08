@@ -8,7 +8,7 @@ services:
             - INFLUXDB_ADMIN_USER=admin
             - INFLUXDB_ADMIN_PASSWORD=admin
 
-    garie_plugin:
+    garie-plugin:
         image: 'eeacms/garie-browsertime:latest'
         privileged: true
         volumes:

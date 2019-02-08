@@ -3,7 +3,7 @@ echo "Start getting data"
 
 docker_id=$( cat /proc/self/cgroup | head -n 1 | sed  's#.*/\([0-9a-fA-F]*\)$#\1#' )
 
-REPORTDIR=$(docker inspect $docker_id | grep :/usr/src/garie_plugin/reports | awk -F'["|:]' '{print $2}')
+REPORTDIR=$(docker inspect $docker_id | grep :/usr/src/garie-plugin/reports | awk -F'["|:]' '{print $2}')
 
 echo "Saving reports into $REPORTDIR"
 
