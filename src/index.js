@@ -23,7 +23,6 @@ const myGetData = async (item) => {
     return new Promise(async (resolve, reject) => {
         try {
             const { reportDir } = item;
-
             const options = { script: path.join(__dirname, './browsertime.sh'),
                         url: url,
                         reportDir: reportDir,
@@ -50,9 +49,10 @@ app.use('/reports', express.static('reports'), serveIndex('reports', { icons: tr
 
 const main = async () => {
   garie_plugin.init({
-    database:'browsertime',
+    db_name:'browsertime',
     getData:myGetData,
-    app_name:'browsertime-results',
+    report_folder_name:'browsertime-results',
+    plugin_name:'browsertime',
     app_root: path.join(__dirname, '..'),
     config:config
   });

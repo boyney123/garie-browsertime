@@ -1,5 +1,9 @@
 {
-  "cron": "0 */4 * * *",
+  "plugins":{
+        "browsertime":{
+            "cron": "0 */4 * * *"
+        }
+    },
   "urls": [
     {
       "url": "https://www.eea.europa.eu/"
