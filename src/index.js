@@ -31,7 +31,11 @@ const myGetData = async (item) => {
                     }
             data = await garie_plugin.utils.helpers.executeScript(options);
 
-            resolve(data);
+            var clear_data = {};
+            Object.keys(data).forEach(function(data_key){
+                clear_data[data_key.replace(/[^\x00-\x7F]/g, "").replace(/\s/g,"")] = data[data_key];
+            });
+            resolve(clear_data);
         } catch (err) {
             console.log(`Failed to get data for ${url}`, err);
             reject(`Failed to get data for ${url}`);
