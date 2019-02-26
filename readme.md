@@ -1,7 +1,7 @@
 ![reports](./screenshots/browsertime-logo.png 'Reports')
 
 <p align="center">
-  <p align="center">Tool to gather browsertime metrics and supports CRON jobs and webhooks.<p>
+  <p align="center">Tool to gather browsertime metrics and supports CRON jobs.<p>
 </p>
 
 **Highlights**
