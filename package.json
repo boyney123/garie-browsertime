@@ -17,7 +17,7 @@
         "start": "node ./src/index.js"
     },
     "dependencies": {
-        "garie-plugin": "https://github.com/eea/garie-plugin#0.0.5"
+        "garie-plugin": "https://github.com/eea/garie-plugin#0.0.7"
     },
     "devDependencies": {
         "codecov": "^3.0.0",
