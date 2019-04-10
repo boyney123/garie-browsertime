@@ -74,8 +74,12 @@ On start garie-browsertime will start to gather performance metrics for the webs
 
 | Property | Type                | Description                                                                          |
 | -------- | ------------------- | ------------------------------------------------------------------------------------ |
-| `cron`   | `string` (optional) | Cron timer. Supports syntax can be found [here].(https://www.npmjs.com/package/cron) |
-| `urls`   | `object` (required) | Config for browsertime. More detail below                                            |
+| `plugins.browsertime.cron`   | `string` (optional) | Cron timer. Supports syntax can be found [here].(https://www.npmjs.com/package/cron) |
+| `plugins.browsertime.urls`   | `object` (required) | Config for browsertime. More detail below                                            |
+| `plugins.browsertime.retry`   | `object` (optional) | Configuration how to retry the failed tasks |
+| `plugins.browsertime.retry.after`   | `number` (optional, default 30) | Minutes before we retry to execute the tasks |
+| `plugins.browsertime.retry.times`   | `number` (optional, default 3) | How many time to retry to execute the failed tasks |
+| `plugins.browsertime.retry.timeRange`   | `number` (optional, default 360) | Period in minutes to be checked in influx, to know if a task failed |
 
 **urls object**
 
