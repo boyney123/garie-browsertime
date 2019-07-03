@@ -1,7 +1,8 @@
 {
   "plugins":{
         "browsertime":{
-            "cron": "0 */4 * * *"
+            "cron": "0 */4 * * *",
+            "maxCpus": 1
         }
     },
   "urls": [
@@ -10,6 +11,10 @@
     },
     {
       "url": "https://biodiversity.europa.eu/"
+    },
+    {
+      "url": "https://acladmin.eionet.europa.eu/",
+      "plugins": { }
     }
   ]
 }
