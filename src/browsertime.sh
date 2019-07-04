@@ -11,7 +11,7 @@ echo "Saving reports into $REPORTDIR"
 
 echo "Getting data for: $1"
 
-timeout 1800 docker run --rm --shm-size=1g -v $REPORTDIR:/browsertime sitespeedio/browsertime $1
+timeout 1800 docker run --rm --shm-size=1g --cpus=$CPU_USAGE -v $REPORTDIR:/browsertime sitespeedio/browsertime $1
 
 echo "Finished getting data for: $1"
 

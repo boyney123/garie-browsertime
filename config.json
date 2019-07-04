@@ -1,8 +1,9 @@
 {
   "plugins":{
-        "browsertime":{
+        "browsertime": {
             "cron": "0 */4 * * *",
-            "maxCpus": 1
+            "maxCpus": 2,
+            "cpuUsage": 0.9
         }
     },
   "urls": [
