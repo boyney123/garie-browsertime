@@ -22,14 +22,12 @@ const myGetData = async (item) => {
     const { url } = item.url_settings;
     return new Promise(async (resolve, reject) => {
         try {
+            const cpuUsage = config.plugins['browsertime'].cpuUsage ? config.plugins['browsertime'].cpuUsage : 1
             const { reportDir } = item;
             const options = { script: path.join(__dirname, './browsertime.sh'),
                         url: url,
                         reportDir: reportDir,
-                        params: [ ],
-                        env: {
-                          CPU_USAGE: config.plugins['browsertime'].cpuUsage
-                        },
+                        params: [ cpuUsage ],
                         callback: myGetFile
                     }
             data = await garie_plugin.utils.helpers.executeScript(options);

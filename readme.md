@@ -86,3 +86,14 @@ On start garie-browsertime will start to gather performance metrics for the webs
 | Property | Type                | Description                         |
 | -------- | ------------------- | ----------------------------------- |
 | `url`    | `string` (required) | Url to get browsertime metrics for. |
+
+## CPUs usage
+
+Limiting CPU usage is done by setting the value of `cpuUsage` in the config.json.
+```
+"plugins":{
+	"my_plugin":{
+		"cron": ...,
+		"cpuUsage": 0.9,
+	}
+}

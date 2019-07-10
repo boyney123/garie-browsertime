@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
-
-echo "Start getting data"
+echo "Start getting data using $3 of CPUs resources allocated for this thread"
 
 docker_id=$( cat /proc/self/cgroup | grep :memory: | sed  's#.*/\([0-9a-fA-F]*\)$#\1#' )
 
@@ -11,7 +10,7 @@ echo "Saving reports into $REPORTDIR"
 
 echo "Getting data for: $1"
 
-timeout 1800 docker run --rm --shm-size=1g --cpus=$CPU_USAGE -v $REPORTDIR:/browsertime sitespeedio/browsertime $1
+timeout 1800 docker run --rm --shm-size=1g --cpus=$3 -v $REPORTDIR:/browsertime sitespeedio/browsertime $1
 
 echo "Finished getting data for: $1"
 
