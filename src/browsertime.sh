@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-echo "Start getting data using $3 of CPUs resources allocated for this thread"
+echo "Start getting data"
 
 docker_id=$( cat /proc/self/cgroup | grep :memory: | sed  's#.*/\([0-9a-fA-F]*\)$#\1#' )
 

@@ -63,6 +63,8 @@ const main = async () => {
         app_root: path.join(__dirname, '..'),
         config:config
       });
+      const cpuUsage = config.plugins['browsertime'].cpuUsage ? config.plugins['browsertime'].cpuUsage : 1
+      console.log('CPUs usage percentage by each thread: ' + cpuUsage * 100 + '%')
     }
     catch(err){
       reject(err);
