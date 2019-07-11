@@ -3,7 +3,7 @@
     "version": "1.3.3",
     "description": "Browertime image for performance metrics",
     "license": "MIT",
-    "repository": "eeacms/garie-securityheaders",
+    "repository": "eeacms/garie-browsertime",
     "author": {
         "name": "EEA Team",
         "email": "eea team"

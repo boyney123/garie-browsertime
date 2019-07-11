@@ -22,11 +22,12 @@ const myGetData = async (item) => {
     const { url } = item.url_settings;
     return new Promise(async (resolve, reject) => {
         try {
+            const cpuUsage = config.plugins['browsertime'].cpuUsage ? config.plugins['browsertime'].cpuUsage : 1
             const { reportDir } = item;
             const options = { script: path.join(__dirname, './browsertime.sh'),
                         url: url,
                         reportDir: reportDir,
-                        params: [ ],
+                        params: [ cpuUsage ],
                         callback: myGetFile
                     }
             data = await garie_plugin.utils.helpers.executeScript(options);
@@ -62,6 +63,8 @@ const main = async () => {
         app_root: path.join(__dirname, '..'),
         config:config
       });
+      const cpuUsage = config.plugins['browsertime'].cpuUsage ? config.plugins['browsertime'].cpuUsage : 1
+      console.log('CPUs usage percentage by each thread: ' + cpuUsage * 100 + '%')
     }
     catch(err){
       reject(err);
